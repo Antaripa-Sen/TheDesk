@@ -135,10 +135,11 @@ export default function VideoGenerator({ latestHeadline = "Semiconductor giant f
               overflow: 'hidden',
               boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
               border: '1px solid var(--color-column-rule)',
-              backgroundImage: 'url("/ai_anchor.png")',
+              backgroundImage: 'url("/female_ai_anchor.png")',
               backgroundSize: 'cover',
               backgroundPosition: 'top center',
-              animation: isPlaying ? 'slow-zoom 15s infinite alternate ease-in-out' : 'none'
+              animation: isPlaying ? 'slow-zoom 15s infinite alternate ease-in-out, subtle-bob 0.8s infinite alternate' : 'none',
+              filter: isPlaying ? 'brightness(1.05) contrast(1.02)' : 'brightness(0.8)'
             }}>
               
               {/* Audio visualizer (only moves when playing) */}

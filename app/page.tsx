@@ -6,6 +6,7 @@ import Ticker from '@/components/Ticker';
 import NavBar from '@/components/NavBar';
 import ArticleSynthesis from '@/components/ArticleSynthesis';
 import VideoGenerator from '@/components/VideoGenerator';
+import AskAnything from '@/components/AskAnything';
 
 function SectionDivider({ title }: { title: string }) {
   return (
@@ -224,6 +225,8 @@ export default function Home() {
       <NavBar onSearch={handleSearch} onCategorySelect={setActiveCategory} activeCategory={activeCategory} />
 
       <div className="container">
+      
+        <AskAnything />
 
         {/* Global Loading Overlay if necessary */}
         {isLoadingNews && searchResults === null && (
