@@ -1,18 +1,35 @@
-export default function Ticker() {
+'use client';
+
+import { useEffect, useState } from 'react';
+
+interface TickerProps {
+  liveHeadlines?: string[];
+}
+
+export default function Ticker({ liveHeadlines = [] }: TickerProps) {
+  const [tickerContent, setTickerContent] = useState<string>('');
+
+  useEffect(() => {
+    if (liveHeadlines.length > 0) {
+      // Build a rich ticker string from live API data
+      const joined = liveHeadlines
+        .map((headline, i) => {
+          const labels = ['BREAKING WIRE', 'LATEST', 'ALERT', 'UPDATE', 'FLASH', 'LIVE'];
+          const label = labels[i % labels.length];
+          return `⬛ ${label}: ${headline}   `;
+        })
+        .join('   ');
+      setTickerContent(joined);
+    } else {
+      // fallback only when API hasn't loaded yet
+      setTickerContent('⬛ CONNECTING TO LIVE NEWSFEED...   ⬛ Please wait while we retrieve headlines...   ');
+    }
+  }, [liveHeadlines]);
+
   return (
     <div className="ticker-bar">
-      <div className="ticker-content">
-        <span className="ticker-label">BREAKING WIRE:</span>
-        <span style={{ marginRight: '4rem' }}>Global markets react cautiously to the newly announced Union Budget amidst macro uncertainty...</span>
-        
-        <span className="ticker-label">LATEST:</span>
-        <span style={{ marginRight: '4rem' }}>Tech stocks slide following major bankruptcy filing in the semiconductor sector...</span>
-        
-        <span className="ticker-label">ECONOMY:</span>
-        <span style={{ marginRight: '4rem' }}>Central Bank hints at potential rate cuts in the upcoming quarter...</span>
-        
-        <span className="ticker-label">UPDATE:</span>
-        <span style={{ marginRight: '4rem' }}>Oil prices stabilize after volatile week of trading...</span>
+      <div className="ticker-content" key={tickerContent}>
+        {tickerContent}
       </div>
     </div>
   );

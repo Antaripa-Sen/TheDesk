@@ -16,7 +16,7 @@ function SectionDivider({ title }: { title: string }) {
   );
 }
 
-function CFOView({ realtimeNews }: { realtimeNews: any[] }) {
+function CFOView({ realtimeNews, liveHeadlines }: { realtimeNews: any[], liveHeadlines: string[] }) {
   const dynamicHeroHeadline = realtimeNews.length > 0 ? realtimeNews[0].title : 'Central Bank Signals Moderation Amid Persistent Core Inflation';
   
   return (
@@ -49,7 +49,7 @@ function CFOView({ realtimeNews }: { realtimeNews: any[] }) {
         <div style={{ gridColumn: 'span 2' }} className="column-rule-right">
           <SectionDivider title="UNION BUDGET 2026" />
           <div style={{ marginTop: '1rem' }}>
-            <ArticleSynthesis />
+            <ArticleSynthesis liveHeadlines={liveHeadlines} />
           </div>
         </div>
 
@@ -118,7 +118,7 @@ function CFOView({ realtimeNews }: { realtimeNews: any[] }) {
   );
 }
 
-function RetailView({ realtimeNews }: { realtimeNews: any[] }) {
+function RetailView({ realtimeNews, liveHeadlines }: { realtimeNews: any[], liveHeadlines: string[] }) {
   const dynamicHeroHeadline = realtimeNews.length > 0 ? realtimeNews[0].title : 'Market Update: Why Your Mutual Funds Might Look Red Today';
 
   return (
@@ -155,7 +155,7 @@ function RetailView({ realtimeNews }: { realtimeNews: any[] }) {
       <div style={{ marginTop: '4rem' }}>
         <h2 className="headline-hero" style={{ textAlign: 'center', display: 'block' }}>Budget 2026: Asked & Answered</h2>
         <p style={{ textAlign: 'center', marginBottom: '2rem', fontFamily: 'var(--font-lora)', color: 'var(--color-ink-wash)' }}>Pick a question to see how the budget directly affects your wallet and portfolio.</p>
-        <ArticleSynthesis />
+        <ArticleSynthesis liveHeadlines={liveHeadlines} />
       </div>
 
     </div>
@@ -219,14 +219,14 @@ export default function Home() {
 
   return (
     <main style={{ minHeight: '100vh', transition: 'background-color 0.3s' }}>
-      <Ticker />
+      <Ticker liveHeadlines={realtimeNews.map((n: any) => n.title).filter(Boolean)} />
       <Masthead />
       {/* Sync up the activeCategory with NavBar layout */}
       <NavBar onSearch={handleSearch} onCategorySelect={setActiveCategory} activeCategory={activeCategory} />
 
       <div className="container">
       
-        <AskAnything />
+        <AskAnything liveHeadlines={realtimeNews.map((n: any) => n.title).filter(Boolean)} />
 
         {/* Global Loading Overlay if necessary */}
         {isLoadingNews && searchResults === null && (
@@ -298,9 +298,9 @@ export default function Home() {
 
             {/* Radically Distinct Render Paths Passing Down Props */}
             {persona === 'CFO' ? (
-              <CFOView realtimeNews={realtimeNews} />
+              <CFOView realtimeNews={realtimeNews} liveHeadlines={realtimeNews.map(n => n.title).filter(Boolean)} />
             ) : (
-              <RetailView realtimeNews={realtimeNews} />
+              <RetailView realtimeNews={realtimeNews} liveHeadlines={realtimeNews.map(n => n.title).filter(Boolean)} />
             )}
         </>
         )}
