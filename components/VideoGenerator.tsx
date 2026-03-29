@@ -5,7 +5,11 @@ import { Play, Pause, Square } from 'lucide-react';
 
 const HINDI_SCRIPT = "नमस्कार, द डेस्क न्यूज़ में आपका स्वागत है। आज की सबसे बड़ी खबर है एक मशहूर टेक कंपनी का दिवालिया होना, जिसे अंग्रेजी में 'बैंकरप्सी' कहते हैं। \n\nआसान भाषा में समझें तो, जैसे आपके इलाके की सबसे पुरानी और बड़ी मिल या कारखाना अचानक ताला लगाकर बंद हो जाए, क्योंकि उन पर बहुत सारा कर्ज़ हो गया हो। यह कंपनी भी वो चिप्स बनाती थी जो आपके फोन और कंप्यूटर को चलाते हैं, लेकिन अब वह बैंक का उधार नहीं चुका पा रही है। \n\nअब सवाल ये है कि एक आम निवेशक के तौर पर क्या आपका पैसा सुरक्षित है? देखिए, अगर आपने अपनी बचत को अलग-अलग जगहों पर बांटा हुआ है—जैसे हम कहते हैं कि 'सारे अंडे एक ही टोकरी में नहीं रखने चाहिए'—तो घबराने की बिलकुल ज़रूरत नहीं है। बाज़ार में ऐसे उतार-चढ़ाव आते रहते हैं। \n\nइसलिए, डर कर अपने म्यूचुअल फंड या शेयर को सस्ते में हरगिज़ न बेचें। समझदारी से निवेश जारी रखें। अधिक जानकारी के लिए पढ़ते रहें, द डेस्क।";
 
-export default function VideoGenerator() {
+interface VideoGeneratorProps {
+  latestHeadline?: string;
+}
+
+export default function VideoGenerator({ latestHeadline = "Semiconductor giant files for Chapter 11" }: VideoGeneratorProps) {
   const [status, setStatus] = useState<'idle' | 'generating' | 'done'>('idle');
   const [isPlaying, setIsPlaying] = useState(false);
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
@@ -63,7 +67,8 @@ export default function VideoGenerator() {
         Live Workflow: Breaking News to Vernacular Video
       </h3>
       <p className="deck" style={{ fontSize: '1rem' }}>
-        LATEST: Semiconductor giant files for Chapter 11. Our system is ready to synthesize an explainer.
+        <a href="#" style={{ color: 'var(--color-press-black)', textDecoration: 'none' }}> LATEST: {latestHeadline} </a> <br/>
+        <span style={{ fontSize: '0.85rem', color: 'var(--color-ink-wash)' }}>Our system is ready to synthesize an explainer.</span>
       </p>
 
       {status === 'idle' && (
@@ -129,36 +134,13 @@ export default function VideoGenerator() {
               position: 'relative',
               overflow: 'hidden',
               boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
-              background: 'radial-gradient(circle at center, #1b263b 0%, #0d1b2a 100%)', // Sleek TV studio background
-              border: '1px solid var(--color-column-rule)'
+              border: '1px solid var(--color-column-rule)',
+              backgroundImage: 'url("/ai_anchor.png")',
+              backgroundSize: 'cover',
+              backgroundPosition: 'top center',
+              animation: isPlaying ? 'slow-zoom 15s infinite alternate ease-in-out' : 'none'
             }}>
               
-              {/* Abstract AI Avatar visualizing speech */}
-              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div style={{
-                  width: '120px', 
-                  height: '120px', 
-                  borderRadius: '50%', 
-                  background: 'linear-gradient(135deg, #415a77, #778da9)',
-                  boxShadow: isPlaying ? '0 0 40px rgba(119, 141, 169, 0.8), inset 0 0 20px rgba(255,255,255,0.5)' : '0 0 10px rgba(119, 141, 169, 0.3)',
-                  transition: 'box-shadow 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  animation: isPlaying ? 'pulse 1.5s infinite alternate' : 'none'
-                }}>
-                  {/* Inner orb */}
-                  <div style={{
-                    width: '60px',
-                    height: '60px',
-                    borderRadius: '50%',
-                    backgroundColor: 'rgba(255,255,255,0.9)',
-                    animation: isPlaying ? 'blink 2s infinite' : 'none'
-                  }}></div>
-                </div>
-                <p style={{ marginTop: '1rem', fontFamily: 'var(--font-raleway)', color: '#e0e1dd', letterSpacing: '0.1em', fontSize: '0.8rem' }}>AI ANCHOR_04</p>
-              </div>
-
               {/* Audio visualizer (only moves when playing) */}
               <div style={{ position: 'absolute', bottom: '18%', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '4px', height: '30px', alignItems: 'flex-end', opacity: isPlaying ? 0.9 : 0.2, zIndex: 2 }}>
                 {[...Array(24)].map((_, i) => (

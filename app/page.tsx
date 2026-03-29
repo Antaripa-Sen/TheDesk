@@ -16,20 +16,28 @@ function SectionDivider({ title }: { title: string }) {
 }
 
 function CFOView({ realtimeNews }: { realtimeNews: any[] }) {
+  const dynamicHeroHeadline = realtimeNews.length > 0 ? realtimeNews[0].title : 'Central Bank Signals Moderation Amid Persistent Core Inflation';
+  
   return (
     <>
       <div className="broadsheet-grid">
         {/* Main Hero Story */}
         <div style={{ gridColumn: 'span 3' }} className="column-rule-right">
           <h1 className="headline-hero" style={{ fontSize: '2.5rem' }}>
-            Central Bank Signals Moderation Amid Persistent Core Inflation
+            <a href={realtimeNews.length > 0 ? realtimeNews[0].url : '#'} target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
+              {dynamicHeroHeadline}
+            </a>
           </h1>
           <p className="deck">
             In a hawkish testimony today, the monetary policy committee stressed that while headline indices reflect cooling, core inflation remains a structural challenge, impacting Q3 yield projections and forward guidance.
           </p>
 
-          <div style={{ marginTop: '2rem', height: '300px', backgroundColor: 'var(--color-ink-wash)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-aged-ivory)' }}>
-            [ Bond Yield Trajectory Chart ]
+          <div style={{ marginTop: '2rem', height: '300px', backgroundColor: 'var(--color-ink-wash)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-aged-ivory)', overflow: 'hidden' }}>
+            {realtimeNews.length > 0 && realtimeNews[0].imageRef ? (
+              <img src={realtimeNews[0].imageRef} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(0.8) contrast(1.2)' }} />
+            ) : (
+              <span>[ Bond Yield Trajectory Chart ]</span>
+            )}
           </div>
           <p className="image-caption">
             Figure 1: Ten-year bond yield trajectories against implied policy rates. (Source: Data Intelligencer)
@@ -76,16 +84,25 @@ function CFOView({ realtimeNews }: { realtimeNews: any[] }) {
         <div className="broadsheet-grid">
           {realtimeNews.length === 0 ? (
             <div style={{ gridColumn: 'span 6', textAlign: 'center' }}>
-               <p className="deck">Polling real-time wires...</p>
+               <p className="deck">No headlines found or still polling...</p>
             </div>
           ) : (
-            realtimeNews.map((news) => (
+            realtimeNews.slice(1).map((news) => (
               <div key={news.id} style={{ gridColumn: 'span 2' }} className="card">
                 <div className="byline">{news.category} | {news.byline}</div>
+                
+                {news.imageRef && (
+                  <div style={{ width: '100%', height: '140px', marginBottom: '1rem', overflow: 'hidden', backgroundColor: 'var(--color-ink-wash)' }}>
+                    <img src={news.imageRef} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(1)' }} />
+                  </div>
+                )}
+                
                 <h3 style={{ fontFamily: 'var(--font-playfair)', fontSize: '1.2rem', marginBottom: '1rem', lineHeight: '1.2' }}>
-                  {news.title}
+                  <a href={news.url} target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    {news.title}
+                  </a>
                 </h3>
-                <p className="deck" style={{ fontSize: '0.9rem' }}>{news.deck}</p>
+                <p className="deck" style={{ fontSize: '0.9rem' }}>{news.deck.slice(0, 120)}...</p>
               </div>
             ))
           )}
@@ -94,13 +111,15 @@ function CFOView({ realtimeNews }: { realtimeNews: any[] }) {
 
       <div style={{ marginTop: '4rem' }}>
         <SectionDivider title="AUTOMATED DESK INITIATIVES" />
-        <VideoGenerator />
+        <VideoGenerator latestHeadline={dynamicHeroHeadline} />
       </div>
     </>
   );
 }
 
-function RetailView() {
+function RetailView({ realtimeNews }: { realtimeNews: any[] }) {
+  const dynamicHeroHeadline = realtimeNews.length > 0 ? realtimeNews[0].title : 'Market Update: Why Your Mutual Funds Might Look Red Today';
+
   return (
     <div style={{ maxWidth: '900px', margin: '0 auto' }}>
       
@@ -108,7 +127,9 @@ function RetailView() {
       <div className="card" style={{ padding: '3rem', backgroundColor: 'var(--color-aged-ivory)', border: 'none', borderTop: '4px solid var(--color-telegraph-red)' }}>
         <div className="byline" style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>Your Daily Market TL;DR</div>
         <h1 className="headline-hero" style={{ fontSize: '3rem', borderBottom: 'none' }}>
-          Market Update: Why Your Mutual Funds Might Look Red Today
+          <a href={realtimeNews.length > 0 ? realtimeNews[0].url : '#'} target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
+             {dynamicHeroHeadline}
+          </a>
         </h1>
         <p className="deck" style={{ fontSize: '1.3rem', marginTop: '1.5rem', color: 'var(--color-press-black)' }}>
           Experts advise not to panic-sell as major stock indices take a dip this morning following global news. Here is what it means for your long-term SIPs.
@@ -126,8 +147,8 @@ function RetailView() {
 
       <div style={{ marginTop: '4rem' }}>
         <h2 className="headline-hero" style={{ textAlign: 'center', display: 'block' }}>Breaking: Explainer Video</h2>
-        <p style={{ textAlign: 'center', marginBottom: '2rem', fontFamily: 'var(--font-lora)', color: 'var(--color-ink-wash)' }}>We generated a 60-second Hindi explainer on the latest bankruptcy filing, just for you.</p>
-        <VideoGenerator />
+        <p style={{ textAlign: 'center', marginBottom: '2rem', fontFamily: 'var(--font-lora)', color: 'var(--color-ink-wash)' }}>We generated a 60-second Hindi explainer on the latest breaking news filing, just for you.</p>
+        <VideoGenerator latestHeadline={dynamicHeroHeadline} />
       </div>
 
       <div style={{ marginTop: '4rem' }}>
@@ -142,19 +163,35 @@ function RetailView() {
 
 export default function Home() {
   const [persona, setPersona] = useState<'CFO' | 'RETAIL'>('CFO');
+  const [activeCategory, setActiveCategory] = useState<string>('world');
+  
   const [realtimeNews, setRealtimeNews] = useState<any[]>([]);
+  const [isLoadingNews, setIsLoadingNews] = useState(false);
+  const [newsError, setNewsError] = useState<string | null>(null);
+
   const [searchResults, setSearchResults] = useState<any[] | null>(null);
   const [isSearching, setIsSearching] = useState(false);
 
+  // Fetch Category
   useEffect(() => {
-    fetch('/api/news')
+    setIsLoadingNews(true);
+    setNewsError(null);
+    fetch(`/api/news?category=${activeCategory}`)
       .then(res => res.json())
       .then(data => {
         if(data.success) {
           setRealtimeNews(data.articles);
+        } else {
+          setNewsError(data.error);
         }
+      })
+      .catch(err => {
+        setNewsError("Network Error while fetching live API");
+      })
+      .finally(() => {
+        setIsLoadingNews(false);
       });
-  }, []);
+  }, [activeCategory]);
 
   const handleSearch = async (query: string) => {
     setIsSearching(true);
@@ -163,9 +200,13 @@ export default function Home() {
       const data = await res.json();
       if(data.success) {
         setSearchResults(data.results);
+      } else {
+        alert(`API Search Error: ${data.error}`);
+        setSearchResults([]);
       }
     } catch (e) {
       console.error(e);
+      setSearchResults([]);
     } finally {
       setIsSearching(false);
     }
@@ -179,9 +220,27 @@ export default function Home() {
     <main style={{ minHeight: '100vh', transition: 'background-color 0.3s' }}>
       <Ticker />
       <Masthead />
-      <NavBar onSearch={handleSearch} />
+      {/* Sync up the activeCategory with NavBar layout */}
+      <NavBar onSearch={handleSearch} onCategorySelect={setActiveCategory} activeCategory={activeCategory} />
 
       <div className="container">
+
+        {/* Global Loading Overlay if necessary */}
+        {isLoadingNews && searchResults === null && (
+          <div style={{ textAlign: 'center', marginBottom: '2rem', padding: '1rem', backgroundColor: 'var(--color-ink-wash)', color: 'var(--color-aged-ivory)' }}>
+            <span className="small-caps" style={{ animation: 'blink 1.5s infinite', display: 'inline-block' }}>CONNECTING TO NEWSAPI DOT ORG... FETCHING LIVE WIRES</span>
+          </div>
+        )}
+
+        {/* Global API Error State */}
+        {newsError && searchResults === null && (
+          <div style={{ textAlign: 'center', marginBottom: '2rem', padding: '1rem', border: '2px dashed var(--color-telegraph-red)', color: 'var(--color-telegraph-red)' }}>
+            <span className="small-caps"><b>LIVE SATELLITE FEED DISRUPTED:</b> {newsError}</span><br/>
+            (Notice: If you are using the free tier of NewsAPI on localhost, verify your API Key is valid and limits haven't been exceeded.)
+          </div>
+        )}
+
+        {/* Search Results Override View */}
         {searchResults !== null ? (
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
@@ -190,16 +249,25 @@ export default function Home() {
             </div>
             
             {isSearching ? (
-              <p className="deck">Searching archives...</p>
+              <p className="deck">Searching global API archives...</p>
             ) : searchResults.length === 0 ? (
               <p className="deck">No results found for your query.</p>
             ) : (
               <div className="broadsheet-grid">
                 {searchResults.map((item, idx) => (
                    <div key={idx} style={{ gridColumn: 'span 2' }} className="card">
-                     <div className="byline">{item.category}</div>
-                     <h3 style={{ fontFamily: 'var(--font-playfair)', fontSize: '1.4rem', marginBottom: '1rem' }}>{item.title}</h3>
-                     <p className="deck" style={{ fontSize: '0.9rem' }}>{item.deck}</p>
+                     <div className="byline">{item.category} | {item.byline}</div>
+                     {item.imageRef && (
+                        <div style={{ width: '100%', height: '140px', marginBottom: '1rem', overflow: 'hidden', backgroundColor: 'var(--color-ink-wash)' }}>
+                          <img src={item.imageRef} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(1)' }} />
+                        </div>
+                     )}
+                     <h3 style={{ fontFamily: 'var(--font-playfair)', fontSize: '1.4rem', marginBottom: '1rem' }}>
+                       <a href={item.url} target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
+                          {item.title}
+                       </a>
+                     </h3>
+                     <p className="deck" style={{ fontSize: '0.9rem' }}>{item.deck.slice(0, 150)}...</p>
                    </div>
                 ))}
               </div>
@@ -225,11 +293,11 @@ export default function Home() {
               </button>
             </div>
 
-            {/* Radically Distinct Render Paths */}
+            {/* Radically Distinct Render Paths Passing Down Props */}
             {persona === 'CFO' ? (
               <CFOView realtimeNews={realtimeNews} />
             ) : (
-              <RetailView />
+              <RetailView realtimeNews={realtimeNews} />
             )}
         </>
         )}
