@@ -59,27 +59,38 @@ export default function VideoGenerator() {
           <div>
             <h4 className="small-caps">Rendered Video Output</h4>
             <div style={{ 
-              backgroundColor: '#000', 
+              backgroundColor: '#0A0A0A', 
               aspectRatio: '16/9', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center',
               color: 'var(--color-newsprint)',
               position: 'relative',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              backgroundImage: 'url("https://images.unsplash.com/photo-1577563908411-5079b6a47ea1?w=800&q=80")',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
             }}>
-              <video 
-                src="https://www.w3schools.com/html/mov_bbb.mp4" 
-                autoPlay 
-                loop 
-                controls 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-              <div style={{ position: 'absolute', bottom: '1rem', left: '1rem', backgroundColor: 'var(--color-telegraph-red)', color: 'white', padding: '0.2rem 0.5rem', fontFamily: 'var(--font-raleway)', fontSize: '0.7rem', fontWeight: 'bold' }}>
-                LIVE AI
+              {/* Simulated Audio Equalizer overlay to represent TTS speaking */}
+              <div style={{ position: 'absolute', bottom: '10%', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '3px', height: '30px', alignItems: 'flex-end', opacity: 0.8 }}>
+                {[...Array(15)].map((_, i) => (
+                  <div key={i} style={{
+                    width: '6px',
+                    backgroundColor: 'rgba(255,255,255,0.9)',
+                    animation: `ticker-scroll ${0.5 + Math.random()}s infinite alternate ease-in-out`,
+                    height: `${20 + Math.random() * 80}%`
+                  }} />
+                ))}
+              </div>
+              <div style={{ position: 'absolute', top: '1rem', right: '1rem', backgroundColor: 'var(--color-telegraph-red)', color: 'white', padding: '0.2rem 0.6rem', fontFamily: 'var(--font-raleway)', fontSize: '0.8rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.5rem', borderRadius: '4px' }}>
+                <span style={{ width: '8px', height: '8px', backgroundColor: 'white', borderRadius: '50%', animation: 'blink 1s infinite' }}></span>
+                LIVE AI ANCHOR
+              </div>
+              <div style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', backgroundColor: 'rgba(0,0,0,0.8)', padding: '0.5rem 1rem', fontFamily: 'var(--font-lora)', fontSize: '0.9rem', borderTop: '2px solid var(--color-telegraph-red)' }}>
+                "...जैसे कई अलग-अलग टोकरियों में अंडे रखना..."
               </div>
             </div>
-            <p className="image-caption" style={{ marginTop: '0.5rem' }}>Automated explainer generated in 42 seconds.</p>
+            <p className="image-caption" style={{ marginTop: '0.5rem' }}>Automated explainer generated in 42 seconds using Studio Avatar #4.</p>
           </div>
         </div>
       )}

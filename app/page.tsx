@@ -15,16 +15,138 @@ function SectionDivider({ title }: { title: string }) {
   );
 }
 
+function CFOView({ realtimeNews }: { realtimeNews: any[] }) {
+  return (
+    <>
+      <div className="broadsheet-grid">
+        {/* Main Hero Story */}
+        <div style={{ gridColumn: 'span 3' }} className="column-rule-right">
+          <h1 className="headline-hero" style={{ fontSize: '2.5rem' }}>
+            Central Bank Signals Moderation Amid Persistent Core Inflation
+          </h1>
+          <p className="deck">
+            In a hawkish testimony today, the monetary policy committee stressed that while headline indices reflect cooling, core inflation remains a structural challenge, impacting Q3 yield projections and forward guidance.
+          </p>
+
+          <div style={{ marginTop: '2rem', height: '300px', backgroundColor: 'var(--color-ink-wash)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-aged-ivory)' }}>
+            [ Bond Yield Trajectory Chart ]
+          </div>
+          <p className="image-caption">
+            Figure 1: Ten-year bond yield trajectories against implied policy rates. (Source: Data Intelligencer)
+          </p>
+        </div>
+
+        {/* Secondary Story & Synthesis */}
+        <div style={{ gridColumn: 'span 2' }} className="column-rule-right">
+          <SectionDivider title="UNION BUDGET 2026" />
+          <div style={{ marginTop: '1rem' }}>
+            <ArticleSynthesis />
+          </div>
+        </div>
+
+        {/* Sidebar */}
+        <div style={{ gridColumn: 'span 1' }}>
+          <div className="card">
+            <h3 className="small-caps" style={{ borderBottom: '1px solid var(--color-press-black)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>
+              Macro Indicators
+            </h3>
+            <div className="list-item">
+              <span style={{ fontWeight: 600 }}>10Y GOVT YIELD</span><br/>
+              7.12% <span style={{ color: 'var(--color-telegraph-red)' }}>▼ -0.4%</span>
+            </div>
+            <div className="list-item">
+              <span style={{ fontWeight: 600 }}>USD/INR</span><br/>
+              83.45 <span style={{ color: 'var(--color-telegraph-red)' }}>▼ -0.1%</span>
+            </div>
+            <div className="list-item">
+              <span style={{ fontWeight: 600 }}>BRENT CRUDE</span><br/>
+              $82.10 <span style={{ color: 'green' }}>▲ +1.2%</span>
+            </div>
+            <div className="list-item">
+              <span style={{ fontWeight: 600 }}>M3 MONEY SUPPLY</span><br/>
+              ₹234L Cr <span style={{ color: 'green' }}>▲ +0.8%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+          
+      {/* Real-time Data Section */}
+      <div style={{ marginTop: '3rem' }}>
+        <SectionDivider title="LATEST WIRE COVERAGE" />
+        <div className="broadsheet-grid">
+          {realtimeNews.length === 0 ? (
+            <div style={{ gridColumn: 'span 6', textAlign: 'center' }}>
+               <p className="deck">Polling real-time wires...</p>
+            </div>
+          ) : (
+            realtimeNews.map((news) => (
+              <div key={news.id} style={{ gridColumn: 'span 2' }} className="card">
+                <div className="byline">{news.category} | {news.byline}</div>
+                <h3 style={{ fontFamily: 'var(--font-playfair)', fontSize: '1.2rem', marginBottom: '1rem', lineHeight: '1.2' }}>
+                  {news.title}
+                </h3>
+                <p className="deck" style={{ fontSize: '0.9rem' }}>{news.deck}</p>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+
+      <div style={{ marginTop: '4rem' }}>
+        <SectionDivider title="AUTOMATED DESK INITIATIVES" />
+        <VideoGenerator />
+      </div>
+    </>
+  );
+}
+
+function RetailView() {
+  return (
+    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+      
+      {/* Retail Hero */}
+      <div className="card" style={{ padding: '3rem', backgroundColor: 'var(--color-aged-ivory)', border: 'none', borderTop: '4px solid var(--color-telegraph-red)' }}>
+        <div className="byline" style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>Your Daily Market TL;DR</div>
+        <h1 className="headline-hero" style={{ fontSize: '3rem', borderBottom: 'none' }}>
+          Market Update: Why Your Mutual Funds Might Look Red Today
+        </h1>
+        <p className="deck" style={{ fontSize: '1.3rem', marginTop: '1.5rem', color: 'var(--color-press-black)' }}>
+          Experts advise not to panic-sell as major stock indices take a dip this morning following global news. Here is what it means for your long-term SIPs.
+        </p>
+        
+        <div style={{ backgroundColor: 'var(--color-newsprint)', padding: '1.5rem', marginTop: '2rem', borderLeft: '4px solid var(--color-press-black)' }}>
+          <h3 className="small-caps" style={{ color: 'var(--color-telegraph-red)', fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '1rem' }}>Three Things You Need to Know:</h3>
+          <ul style={{ margin: 0, paddingLeft: '1.5rem', fontSize: '1.1rem', fontFamily: 'var(--font-lora)', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+            <li>Global markets are down because of overseas tech updates, not Indian fundamentals.</li>
+            <li>Indian markets are structurally strong and retail consumption is still high.</li>
+            <li><strong>Action: Do not stop your SIP investments!</strong> Market dips are actually opportunities to buy units at a cheaper price.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style={{ marginTop: '4rem' }}>
+        <h2 className="headline-hero" style={{ textAlign: 'center', display: 'block' }}>Breaking: Explainer Video</h2>
+        <p style={{ textAlign: 'center', marginBottom: '2rem', fontFamily: 'var(--font-lora)', color: 'var(--color-ink-wash)' }}>We generated a 60-second Hindi explainer on the latest bankruptcy filing, just for you.</p>
+        <VideoGenerator />
+      </div>
+
+      <div style={{ marginTop: '4rem' }}>
+        <h2 className="headline-hero" style={{ textAlign: 'center', display: 'block' }}>Budget 2026: Asked & Answered</h2>
+        <p style={{ textAlign: 'center', marginBottom: '2rem', fontFamily: 'var(--font-lora)', color: 'var(--color-ink-wash)' }}>Pick a question to see how the budget directly affects your wallet and portfolio.</p>
+        <ArticleSynthesis />
+      </div>
+
+    </div>
+  );
+}
+
 export default function Home() {
   const [persona, setPersona] = useState<'CFO' | 'RETAIL'>('CFO');
-  
-  // Real-time data states
   const [realtimeNews, setRealtimeNews] = useState<any[]>([]);
   const [searchResults, setSearchResults] = useState<any[] | null>(null);
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
-    // Fetch simulated real-time data on mount
     fetch('/api/news')
       .then(res => res.json())
       .then(data => {
@@ -60,8 +182,6 @@ export default function Home() {
       <NavBar onSearch={handleSearch} />
 
       <div className="container">
-        
-        {/* Search Results Override */}
         {searchResults !== null ? (
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
@@ -88,10 +208,8 @@ export default function Home() {
           </div>
         ) : (
         <>
-            {/* Standard Homepage Flow */}
-            
-            {/* Persona Switcher */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '3rem', borderBottom: '1px solid var(--color-column-rule)', paddingBottom: '1rem' }}>
+            {/* Persona Switcher Bar */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '3rem', borderBottom: '1px solid var(--color-column-rule)', paddingBottom: '1rem', backgroundColor: 'var(--color-newsprint)', position: 'sticky', top: 0, zIndex: 10, paddingTop: '1rem' }}>
               <span className="small-caps" style={{ alignSelf: 'center', fontWeight: 'bold' }}>Simulate View:</span>
               <button 
                 className={`btn ${persona === 'CFO' ? 'active' : ''}`}
@@ -107,104 +225,14 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="broadsheet-grid">
-              
-              {/* Main Hero Story */}
-              <div style={{ gridColumn: persona === 'CFO' ? 'span 3' : 'span 4' }} className="column-rule-right">
-                <h1 className="headline-hero">
-                  {persona === 'CFO' 
-                    ? 'Central Bank Signals Moderation Amid Persistent Core Inflation'
-                    : 'Market Update: Why Your Mutual Funds Might Look Red Today'}
-                </h1>
-                <p className="deck">
-                  {persona === 'CFO'
-                    ? "In a hawkish testimony today, the monetary policy committee stressed that while headline indices reflect cooling, core inflation remains a structural challenge, impacting Q3 yield projections and forward guidance."
-                    : "Experts advise not to panic-sell as major stock indices take a dip morning following global news. Here is what it means for your long-term SIPs."}
-                </p>
-                
-                {persona === 'RETAIL' && (
-                  <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', paddingBottom: '1rem' }}>
-                      <span className="small-caps" style={{ color: 'var(--color-telegraph-red)', fontWeight: 'bold' }}>Key Takeaways:</span>
-                      <ul className="deck" style={{ margin: 0, paddingLeft: '1rem', fontSize: '0.9rem' }}>
-                        <li>Global markets are down due to overseas news.</li>
-                        <li>Indian markets are fundamentally strong.</li>
-                        <li>Do not stop your SIP investments!</li>
-                      </ul>
-                  </div>
-                )}
-
-                <div style={{ marginTop: '2rem', height: '300px', backgroundColor: 'var(--color-ink-wash)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-aged-ivory)' }}>
-                  [ Editorial Photograph Asset ]
-                </div>
-                <p className="image-caption">
-                  {persona === 'CFO' ? 'Figure 1: Ten-year bond yield trajectories. (Source: Data Intelligencer)' : 'Illustration: A bull market resting before the next run.'}
-                </p>
-              </div>
-
-              {/* Secondary Story & Synthesis */}
-              <div style={{ gridColumn: persona === 'CFO' ? 'span 2' : 'span 2' }} className={persona === 'CFO' ? 'column-rule-right' : ''}>
-                <SectionDivider title="UNION BUDGET 2026" />
-                <div style={{ marginTop: '1rem' }}>
-                  <ArticleSynthesis />
-                </div>
-              </div>
-
-              {/* Sidebar (CFO specific) */}
-              {persona === 'CFO' && (
-                <div style={{ gridColumn: 'span 1' }}>
-                  <div className="card">
-                    <h3 className="small-caps" style={{ borderBottom: '1px solid var(--color-press-black)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>
-                      Macro Data
-                    </h3>
-                    <div className="list-item">
-                      <span style={{ fontWeight: 600 }}>10Y YIELD</span><br/>
-                      7.12% <span style={{ color: 'var(--color-telegraph-red)' }}>▼ -0.4%</span>
-                    </div>
-                    <div className="list-item">
-                      <span style={{ fontWeight: 600 }}>USD/INR</span><br/>
-                      83.45 <span style={{ color: 'var(--color-telegraph-red)' }}>▼ -0.1%</span>
-                    </div>
-                    <div className="list-item">
-                      <span style={{ fontWeight: 600 }}>BRENT CRUDE</span><br/>
-                      $82.10 <span style={{ color: 'green' }}>▲ +1.2%</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-            </div>
-            
-            {/* Real-time Data Section */}
-            <div style={{ marginTop: '3rem' }}>
-              <SectionDivider title="LATEST WIRE COVERAGE" />
-              <div className="broadsheet-grid">
-                {realtimeNews.length === 0 ? (
-                  <div style={{ gridColumn: 'span 6', textAlign: 'center' }}>
-                     <p className="deck">Polling real-time wires...</p>
-                  </div>
-                ) : (
-                  realtimeNews.map((news) => (
-                    <div key={news.id} style={{ gridColumn: 'span 2' }} className="card">
-                      <div className="byline">{news.category} | {news.byline}</div>
-                      <h3 style={{ fontFamily: 'var(--font-playfair)', fontSize: '1.2rem', marginBottom: '1rem', lineHeight: '1.2' }}>
-                        {news.title}
-                      </h3>
-                      <p className="deck" style={{ fontSize: '0.9rem' }}>{news.deck}</p>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-
-            {/* Section: Vernacular Video Gen */}
-            <div style={{ marginTop: '4rem' }}>
-              <SectionDivider title="AUTOMATED DESK INITIATIVES" />
-              <VideoGenerator />
-            </div>
-
+            {/* Radically Distinct Render Paths */}
+            {persona === 'CFO' ? (
+              <CFOView realtimeNews={realtimeNews} />
+            ) : (
+              <RetailView />
+            )}
         </>
         )}
-
       </div>
     </main>
   );
