@@ -23,7 +23,7 @@ function CFOView({ realtimeNews, liveHeadlines }: { realtimeNews: any[], liveHea
     <>
       <div className="broadsheet-grid">
         {/* Main Hero Story */}
-        <div style={{ gridColumn: 'span 3' }} className="column-rule-right">
+        <div className="col-span-3 column-rule-right">
           <h1 className="headline-hero" style={{ fontSize: '2.5rem' }}>
             <a href={realtimeNews.length > 0 ? realtimeNews[0].url : '#'} target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
               {dynamicHeroHeadline}
@@ -46,7 +46,7 @@ function CFOView({ realtimeNews, liveHeadlines }: { realtimeNews: any[], liveHea
         </div>
 
         {/* Secondary Story & Synthesis */}
-        <div style={{ gridColumn: 'span 2' }} className="column-rule-right">
+        <div className="col-span-2 column-rule-right">
           <SectionDivider title="UNION BUDGET 2026" />
           <div style={{ marginTop: '1rem' }}>
             <ArticleSynthesis liveHeadlines={liveHeadlines} />
@@ -54,7 +54,7 @@ function CFOView({ realtimeNews, liveHeadlines }: { realtimeNews: any[], liveHea
         </div>
 
         {/* Sidebar */}
-        <div style={{ gridColumn: 'span 1' }}>
+        <div className="col-span-1">
           <div className="card">
             <h3 className="small-caps" style={{ borderBottom: '1px solid var(--color-press-black)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>
               Macro Indicators
@@ -84,12 +84,12 @@ function CFOView({ realtimeNews, liveHeadlines }: { realtimeNews: any[], liveHea
         <SectionDivider title="LATEST WIRE COVERAGE" />
         <div className="broadsheet-grid">
           {realtimeNews.length === 0 ? (
-            <div style={{ gridColumn: 'span 6', textAlign: 'center' }}>
+            <div className="col-span-6" style={{ textAlign: 'center' }}>
                <p className="deck">No headlines found or still polling...</p>
             </div>
           ) : (
             realtimeNews.slice(1).map((news) => (
-              <div key={news.id} style={{ gridColumn: 'span 2' }} className="card">
+              <div key={news.id} className="col-span-2 card">
                 <div className="byline">{news.category} | {news.byline}</div>
                 
                 {news.imageRef && (
@@ -258,7 +258,7 @@ export default function Home() {
             ) : (
               <div className="broadsheet-grid">
                 {searchResults.map((item, idx) => (
-                   <div key={idx} style={{ gridColumn: 'span 2' }} className="card">
+                   <div key={idx} className="col-span-2 card">
                      <div className="byline">{item.category} | {item.byline}</div>
                      {item.imageRef && (
                         <div style={{ width: '100%', height: '140px', marginBottom: '1rem', overflow: 'hidden', backgroundColor: 'var(--color-ink-wash)' }}>
@@ -280,7 +280,7 @@ export default function Home() {
         ) : (
         <>
             {/* Persona Switcher Bar */}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '3rem', borderBottom: '1px solid var(--color-column-rule)', paddingBottom: '1rem', backgroundColor: 'var(--color-newsprint)', position: 'sticky', top: 0, zIndex: 10, paddingTop: '1rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '3rem', borderBottom: '1px solid var(--color-column-rule)', paddingBottom: '1rem', backgroundColor: 'var(--color-newsprint)', position: 'sticky', top: 0, zIndex: 10, paddingTop: '1rem', flexWrap: 'wrap' }}>
               <span className="small-caps" style={{ alignSelf: 'center', fontWeight: 'bold' }}>Simulate View:</span>
               <button 
                 className={`btn ${persona === 'CFO' ? 'active' : ''}`}

@@ -81,7 +81,7 @@ export default function AskAnything({ liveHeadlines = [] }: AskAnythingProps) {
       </p>
 
       {/* Input Row */}
-      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+      <div className="ask-input-row">
         <input
           type="text"
           placeholder="Ask anything about news, markets, economy..."

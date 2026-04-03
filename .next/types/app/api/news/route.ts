@@ -1,4 +1,4 @@
-// File: /Users/souravkairi/TheDesk/app/api/news/route.ts
+// File: E:\91943\antigravity work\TheDesk\app\api\news\route.ts
 import * as entry from '../../../../../app/api/news/route.js'
 import type { NextRequest } from 'next/server.js'
 

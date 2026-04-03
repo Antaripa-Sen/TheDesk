@@ -116,9 +116,10 @@ h1, h2, h3, h4, h5, h6 {
 /* Nav */
 .nav-bar {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   gap: 2rem;
-  padding: 1rem 0;
+  padding: 1rem 5%;
   border-bottom: 1px solid var(--color-column-rule);
   font-family: var(--font-raleway), sans-serif;
   font-size: 0.85rem;
@@ -149,6 +150,11 @@ h1, h2, h3, h4, h5, h6 {
   grid-template-columns: repeat(6, 1fr);
   gap: 2rem;
 }
+
+.col-span-1 { grid-column: span 1; }
+.col-span-2 { grid-column: span 2; }
+.col-span-3 { grid-column: span 3; }
+.col-span-6 { grid-column: span 6; }
 
 /* Rules */
 .column-rule-right {
@@ -315,3 +321,92 @@ h1, h2, h3, h4, h5, h6 {
   0% { transform: translateY(0); }
   100% { transform: translateY(-3px); }
 }
+
+/* Responsive Utilities */
+.video-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1.2fr;
+  gap: 2rem;
+}
+
+.ask-input-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.nav-links-container {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  /* Grids and Layouts */
+  .broadsheet-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .col-span-1, .col-span-2, .col-span-3, .col-span-6 {
+    grid-column: span 1;
+  }
+
+  .column-rule-right {
+    border-right: none;
+    padding-right: 0;
+    border-bottom: 1px solid var(--color-column-rule);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Components */
+  .masthead {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem 5%;
+    text-align: center;
+  }
+
+  .masthead .tagline {
+    text-align: center;
+  }
+
+  .nav-bar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .nav-bar > div {
+    justify-content: center !important;
+  }
+
+  .nav-links-container {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .video-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ask-input-row {
+    flex-direction: column;
+  }
+  
+  .ask-input-row button {
+    width: 100%;
+  }
+
+  /* Typography */
+  .headline-hero {
+    font-size: 2rem !important;
+  }
+
+  .masthead .logo {
+    font-size: 3rem;
+  }
+}
+

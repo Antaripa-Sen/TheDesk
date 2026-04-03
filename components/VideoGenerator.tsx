@@ -196,7 +196,7 @@ export default function VideoGenerator({ latestHeadline = "Global markets react 
       )}
 
       {status === 'done' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 1.2fr', gap: '2rem' }}>
+        <div className="video-layout">
 
           {/* Script Column */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>

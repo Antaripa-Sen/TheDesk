@@ -14,7 +14,7 @@ export default function NavBar({ onSearch, onCategorySelect, activeCategory = 'w
   const categories = ['World', 'Politics', 'Economy', 'Markets', 'Culture', 'Science'];
 
   return (
-    <nav className="nav-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 5%' }}>
+    <nav className="nav-bar">
       
       {/* Search side */}
       <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
@@ -22,7 +22,7 @@ export default function NavBar({ onSearch, onCategorySelect, activeCategory = 'w
       </div>
       
       {/* Links side */}
-      <div style={{ flex: 2, display: 'flex', justifyContent: 'center', gap: '2rem' }}>
+      <div className="nav-links-container">
         {categories.map((cat) => (
           <button 
             key={cat}
