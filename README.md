@@ -8,7 +8,7 @@
 
 ## 🌐 Live Demo
 
-**[→ https://the-desk-wine.vercel.app/](https://the-desk-wine.vercel.app/)**
+**[→ https://the-desk-beta.vercel.app/](https://the-desk-beta.vercel.app/)**
 
 ---
 
