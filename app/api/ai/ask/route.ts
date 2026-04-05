@@ -16,10 +16,11 @@ export async function POST(req: Request) {
 
     // Step 1: Extract keywords (simplistic simulation of an NLP extracting search terms)
     // We remove some common english stop words and query NewsAPI's everything endpoint.
-    const stopWords = ['what', 'why', 'is', 'the', 'how', 'describe', 'explain', 'tell', 'me', 'about', 'a', 'an', 'in', 'on', 'do', 'does', 'did', 'are', 'were', 'will'];
+    const stopWords = ['what', 'why', 'is', 'the', 'how', 'describe', 'explain', 'tell', 'me', 'about', 'a', 'an', 'in', 'on', 'do', 'does', 'did', 'are', 'were', 'will', 'affect', 'longterm', 'long', 'term', 'investors', 'retail', 'know', 'macro', 'impact', 'watch', 'next', 'should', 'this'];
     const keywords = question.split(' ')
         .map(w => w.toLowerCase().replace(/[^a-z0-9]/g, ''))
         .filter(w => !stopWords.includes(w) && w.length > 2)
+        .slice(0, 3)
         .join(' ');
         
     const searchQuery = keywords.length > 0 ? keywords : 'global news';

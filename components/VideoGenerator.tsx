@@ -87,6 +87,23 @@ export default function VideoGenerator({ latestHeadline = "Global markets react 
     utterance.rate = 0.88;
     utterance.pitch = 1.15; // feminine voice emphasis
 
+    // Find and enforce a female voice if available
+    const voices = window.speechSynthesis.getVoices();
+    const femaleVoice = voices.find(v => 
+      v.lang.startsWith('hi') && 
+      (v.name.toLowerCase().includes('female') || 
+       v.name.toLowerCase().includes('kalpana') || 
+       v.name.toLowerCase().includes('aditi') || 
+       v.name.toLowerCase().includes('swara'))
+    );
+    const fallbackVoice = voices.find(v => v.lang.startsWith('hi') && !v.name.toLowerCase().includes('hemant') && !v.name.toLowerCase().includes('male'));
+    
+    if (femaleVoice) {
+      utterance.voice = femaleVoice;
+    } else if (fallbackVoice) {
+      utterance.voice = fallbackVoice;
+    }
+
     utterance.onend = () => {
       chunkIndexRef.current += 1;
       speakNextChunk();

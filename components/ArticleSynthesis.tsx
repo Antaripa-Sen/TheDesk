@@ -65,6 +65,7 @@ export default function ArticleSynthesis({ liveHeadlines = [] }: ArticleSynthesi
     if (staticItem) {
       setStaticAnswer(staticItem.ans);
       setDynamicAnswer('');
+      setIsLoadingDynamic(false);
       return;
     }
 
